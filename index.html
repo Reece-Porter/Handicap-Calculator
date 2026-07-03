@@ -142,6 +142,11 @@
       <h2>Predict a Score → Handicap</h2>
       <p class="hint">See what your handicap index would become if you played a round with a given score.</p>
       <form id="simulateForm">
+        <label>Saved Course
+          <select id="simCourseSelect">
+            <option value="">— Select a saved course —</option>
+          </select>
+        </label>
         <div class="form-row">
           <label>Course Rating <button type="button" class="info-btn" data-term="courseRating">?</button>
             <input type="number" id="simRating" step="0.1" min="50" max="90" required>
@@ -164,6 +169,11 @@
       <form id="targetForm">
         <label>Target Handicap Index <button type="button" class="info-btn" data-term="handicapIndex">?</button>
           <input type="number" id="targetHandicap" step="0.1" required>
+        </label>
+        <label>Saved Course
+          <select id="targetCourseSelect">
+            <option value="">— Select a saved course —</option>
+          </select>
         </label>
         <div class="form-row">
           <label>Course Rating <button type="button" class="info-btn" data-term="courseRating">?</button>

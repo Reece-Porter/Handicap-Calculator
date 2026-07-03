@@ -548,14 +548,20 @@ function renderNearbyCourses() {
   populateCourseSelect();
 }
 
+const COURSE_SELECT_IDS = ['courseSelect', 'simCourseSelect', 'targetCourseSelect'];
+
 function populateCourseSelect() {
-  const select = document.getElementById('courseSelect');
-  const previousValue = select.value;
   const usable = state.courses.filter((c) => c.rating && c.slope);
-  select.innerHTML = '<option value="">— Select a saved course —</option>' + usable.map((c) => `
+  const optionsHtml = '<option value="">— Select a saved course —</option>' + usable.map((c) => `
     <option value="${escapeAttr(c.id)}">${escapeHtml(c.name || 'Unnamed')}${c.town ? ' – ' + escapeHtml(c.town) : ''}</option>
   `).join('');
-  if (usable.some((c) => c.id === previousValue)) select.value = previousValue;
+
+  COURSE_SELECT_IDS.forEach((id) => {
+    const select = document.getElementById(id);
+    const previousValue = select.value;
+    select.innerHTML = optionsHtml;
+    if (usable.some((c) => c.id === previousValue)) select.value = previousValue;
+  });
 }
 
 function applyCourseToForm(course) {
@@ -569,6 +575,20 @@ document.getElementById('courseSelect').addEventListener('change', (e) => {
   const course = findCourse(e.target.value);
   if (!course) return;
   applyCourseToForm(course);
+});
+
+document.getElementById('simCourseSelect').addEventListener('change', (e) => {
+  const course = findCourse(e.target.value);
+  if (!course) return;
+  document.getElementById('simRating').value = course.rating;
+  document.getElementById('simSlope').value = course.slope;
+});
+
+document.getElementById('targetCourseSelect').addEventListener('change', (e) => {
+  const course = findCourse(e.target.value);
+  if (!course) return;
+  document.getElementById('targetRating').value = course.rating;
+  document.getElementById('targetSlope').value = course.slope;
 });
 
 document.getElementById('nearbyCoursesBody').addEventListener('input', (e) => {
