@@ -494,8 +494,11 @@ function closeGlossary() {
   glossaryModal.hidden = true;
 }
 
-document.querySelectorAll('.info-btn').forEach((btn) => {
-  btn.addEventListener('click', () => openGlossary(btn.dataset.term));
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.info-btn');
+  if (!btn) return;
+  e.preventDefault();
+  openGlossary(btn.dataset.term);
 });
 
 document.getElementById('modalCloseBtn').addEventListener('click', closeGlossary);
