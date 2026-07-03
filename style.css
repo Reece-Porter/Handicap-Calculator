@@ -312,6 +312,26 @@ th {
   font-size: 0.85rem;
 }
 
+.use-course-btn {
+  background: none;
+  border: 1px solid var(--green-500);
+  color: var(--green-600);
+  border-radius: 6px;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.use-course-btn:hover {
+  background: var(--green-500);
+  color: #fff;
+}
+
+.courses-table {
+  font-size: 0.8rem;
+}
+
 .info-btn {
   display: inline-flex;
   align-items: center;

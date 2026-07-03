@@ -510,6 +510,66 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ---------------------------------------------------------------------------
+// Nearby course ratings (men's standard tee)
+// ---------------------------------------------------------------------------
+
+// Sourced from online scorecard aggregators, not fetched directly from each
+// club - rating/slope are left blank where sources disagreed or were
+// implausible, rather than guessing.
+const NEARBY_COURSES = [
+  { name: 'Cochrane Castle', town: 'Johnstone', par: 71, rating: 71.1, slope: 128 },
+  { name: 'Elderslie', town: 'Elderslie', par: null, rating: 70.8, slope: 129 },
+  { name: 'Old Course Ranfurly', town: 'Bridge of Weir', par: 70, rating: null, slope: null },
+  { name: 'Ranfurly Castle', town: 'Bridge of Weir', par: null, rating: null, slope: null },
+  { name: 'Kilmacolm', town: 'Kilmacolm', par: null, rating: 68.8, slope: 121 },
+  { name: 'Erskine', town: 'Bishopton', par: null, rating: null, slope: null },
+  { name: 'Gleddoch', town: 'Langbank', par: null, rating: 71.2, slope: 130 },
+  { name: 'Port Glasgow', town: 'Port Glasgow', par: null, rating: 68.1, slope: 118 },
+  { name: 'Greenock', town: 'Greenock', par: null, rating: null, slope: null },
+  { name: 'Greenock Whinhill', town: 'Greenock', par: null, rating: null, slope: null },
+  { name: 'Paisley', town: 'Paisley', par: 71, rating: 71.8, slope: 128 },
+  { name: 'Ralston', town: 'Paisley', par: 70, rating: 69.9, slope: 126 },
+  { name: 'Barshaw', town: 'Paisley', par: null, rating: null, slope: null },
+  { name: 'Renfrew', town: 'Renfrew', par: null, rating: null, slope: null },
+  { name: 'Bonnyton', town: 'Eaglesham', par: 72, rating: 70.5, slope: 128 },
+  { name: 'Whitecraigs', town: 'Giffnock', par: 70, rating: 69.4, slope: 123 },
+  { name: 'Williamwood', town: 'Clarkston', par: 69, rating: 69.5, slope: 123 },
+  { name: 'Cathcart Castle', town: 'Clarkston', par: 70, rating: 69.5, slope: 128 },
+  { name: 'Lochwinnoch', town: 'Lochwinnoch', par: 71, rating: 70.0, slope: 127 },
+  { name: 'Caldwell', town: 'Uplawmoor', par: 71, rating: 70.7, slope: 129 },
+];
+
+function renderNearbyCourses() {
+  const tbody = document.getElementById('nearbyCoursesBody');
+  tbody.innerHTML = NEARBY_COURSES.map((c) => `
+    <tr>
+      <td>${c.name}</td>
+      <td>${c.town}</td>
+      <td>${c.par ?? '—'}</td>
+      <td>${c.rating ?? '—'}</td>
+      <td>${c.slope ?? '—'}</td>
+      <td>${
+        c.rating && c.slope
+          ? `<button type="button" class="use-course-btn" data-name="${escapeHtml(c.name)}" data-rating="${c.rating}" data-slope="${c.slope}">Use</button>`
+          : ''
+      }</td>
+    </tr>
+  `).join('');
+}
+
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.use-course-btn');
+  if (!btn) return;
+  document.getElementById('roundCourse').value = btn.dataset.name;
+  document.getElementById('roundRating').value = btn.dataset.rating;
+  document.getElementById('roundSlope').value = btn.dataset.slope;
+  updateLiveDifferential();
+  document.getElementById('roundScore').focus();
+});
+
+renderNearbyCourses();
+
+// ---------------------------------------------------------------------------
 // Init
 // ---------------------------------------------------------------------------
 
