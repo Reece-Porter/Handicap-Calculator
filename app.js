@@ -4,17 +4,43 @@
 
 const STORAGE_KEY = 'golfHandicapData';
 
+// Seed course names/towns only - no rating or slope, since those must come
+// from the user rather than a guessed or scraped source.
+const DEFAULT_COURSES = [
+  { name: 'Cochrane Castle', town: 'Johnstone' },
+  { name: 'Elderslie', town: 'Elderslie' },
+  { name: 'Old Course Ranfurly', town: 'Bridge of Weir' },
+  { name: 'Ranfurly Castle', town: 'Bridge of Weir' },
+  { name: 'Kilmacolm', town: 'Kilmacolm' },
+  { name: 'Erskine', town: 'Bishopton' },
+  { name: 'Gleddoch', town: 'Langbank' },
+  { name: 'Port Glasgow', town: 'Port Glasgow' },
+  { name: 'Greenock', town: 'Greenock' },
+  { name: 'Greenock Whinhill', town: 'Greenock' },
+  { name: 'Paisley', town: 'Paisley' },
+  { name: 'Ralston', town: 'Paisley' },
+  { name: 'Barshaw', town: 'Paisley' },
+  { name: 'Renfrew', town: 'Renfrew' },
+  { name: 'Bonnyton', town: 'Eaglesham' },
+  { name: 'Whitecraigs', town: 'Giffnock' },
+  { name: 'Williamwood', town: 'Clarkston' },
+  { name: 'Cathcart Castle', town: 'Clarkston' },
+  { name: 'Lochwinnoch', town: 'Lochwinnoch' },
+  { name: 'Caldwell', town: 'Uplawmoor' },
+].map((c, i) => ({ id: `seed-${i}`, name: c.name, town: c.town, par: null, rating: null, slope: null }));
+
 function loadData() {
   const raw = localStorage.getItem(STORAGE_KEY);
-  if (!raw) return { manualHandicap: null, rounds: [] };
+  if (!raw) return { manualHandicap: null, rounds: [], courses: DEFAULT_COURSES };
   try {
     const parsed = JSON.parse(raw);
     return {
       manualHandicap: typeof parsed.manualHandicap === 'number' ? parsed.manualHandicap : null,
       rounds: Array.isArray(parsed.rounds) ? parsed.rounds : [],
+      courses: Array.isArray(parsed.courses) ? parsed.courses : DEFAULT_COURSES,
     };
   } catch {
-    return { manualHandicap: null, rounds: [] };
+    return { manualHandicap: null, rounds: [], courses: DEFAULT_COURSES };
   }
 }
 
@@ -273,6 +299,7 @@ function renderAll() {
   renderHome();
   renderHistory();
   renderSettings();
+  renderNearbyCourses();
 }
 
 // ---------------------------------------------------------------------------
@@ -434,6 +461,7 @@ document.getElementById('importFile').addEventListener('change', (e) => {
       state = {
         manualHandicap: typeof parsed.manualHandicap === 'number' ? parsed.manualHandicap : null,
         rounds: Array.isArray(parsed.rounds) ? parsed.rounds : [],
+        courses: Array.isArray(parsed.courses) ? parsed.courses : DEFAULT_COURSES,
       };
       saveData(state);
       renderAll();
@@ -447,8 +475,8 @@ document.getElementById('importFile').addEventListener('change', (e) => {
 });
 
 document.getElementById('resetBtn').addEventListener('click', () => {
-  if (!confirm('This will permanently delete all rounds and your manual handicap from this device. Continue?')) return;
-  state = { manualHandicap: null, rounds: [] };
+  if (!confirm('This will permanently delete all rounds, your manual handicap, and your saved courses from this device. Continue?')) return;
+  state = { manualHandicap: null, rounds: [], courses: DEFAULT_COURSES };
   saveData(state);
   renderAll();
 });
@@ -510,64 +538,78 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ---------------------------------------------------------------------------
-// Nearby course ratings (men's standard tee)
+// My Courses (user-entered course ratings)
 // ---------------------------------------------------------------------------
 
-// Sourced from online scorecard aggregators, not fetched directly from each
-// club - rating/slope are left blank where sources disagreed or were
-// implausible, rather than guessing.
-const NEARBY_COURSES = [
-  { name: 'Cochrane Castle', town: 'Johnstone', par: 71, rating: 71.1, slope: 128 },
-  { name: 'Elderslie', town: 'Elderslie', par: null, rating: 70.8, slope: 129 },
-  { name: 'Old Course Ranfurly', town: 'Bridge of Weir', par: 70, rating: null, slope: null },
-  { name: 'Ranfurly Castle', town: 'Bridge of Weir', par: null, rating: null, slope: null },
-  { name: 'Kilmacolm', town: 'Kilmacolm', par: null, rating: 68.8, slope: 121 },
-  { name: 'Erskine', town: 'Bishopton', par: null, rating: null, slope: null },
-  { name: 'Gleddoch', town: 'Langbank', par: null, rating: 71.2, slope: 130 },
-  { name: 'Port Glasgow', town: 'Port Glasgow', par: null, rating: 68.1, slope: 118 },
-  { name: 'Greenock', town: 'Greenock', par: null, rating: null, slope: null },
-  { name: 'Greenock Whinhill', town: 'Greenock', par: null, rating: null, slope: null },
-  { name: 'Paisley', town: 'Paisley', par: 71, rating: 71.8, slope: 128 },
-  { name: 'Ralston', town: 'Paisley', par: 70, rating: 69.9, slope: 126 },
-  { name: 'Barshaw', town: 'Paisley', par: null, rating: null, slope: null },
-  { name: 'Renfrew', town: 'Renfrew', par: null, rating: null, slope: null },
-  { name: 'Bonnyton', town: 'Eaglesham', par: 72, rating: 70.5, slope: 128 },
-  { name: 'Whitecraigs', town: 'Giffnock', par: 70, rating: 69.4, slope: 123 },
-  { name: 'Williamwood', town: 'Clarkston', par: 69, rating: 69.5, slope: 123 },
-  { name: 'Cathcart Castle', town: 'Clarkston', par: 70, rating: 69.5, slope: 128 },
-  { name: 'Lochwinnoch', town: 'Lochwinnoch', par: 71, rating: 70.0, slope: 127 },
-  { name: 'Caldwell', town: 'Uplawmoor', par: 71, rating: 70.7, slope: 129 },
-];
+function escapeAttr(str) {
+  return escapeHtml(str).replace(/"/g, '&quot;');
+}
+
+function findCourse(id) {
+  return state.courses.find((c) => c.id === id);
+}
 
 function renderNearbyCourses() {
   const tbody = document.getElementById('nearbyCoursesBody');
-  tbody.innerHTML = NEARBY_COURSES.map((c) => `
-    <tr>
-      <td>${c.name}</td>
-      <td>${c.town}</td>
-      <td>${c.par ?? '—'}</td>
-      <td>${c.rating ?? '—'}</td>
-      <td>${c.slope ?? '—'}</td>
-      <td>${
-        c.rating && c.slope
-          ? `<button type="button" class="use-course-btn" data-name="${escapeHtml(c.name)}" data-rating="${c.rating}" data-slope="${c.slope}">Use</button>`
-          : ''
-      }</td>
+  tbody.innerHTML = state.courses.map((c) => `
+    <tr data-id="${c.id}">
+      <td><input type="text" class="course-cell" data-field="name" value="${escapeAttr(c.name || '')}" placeholder="Course name"></td>
+      <td><input type="text" class="course-cell" data-field="town" value="${escapeAttr(c.town || '')}" placeholder="Town"></td>
+      <td><input type="number" step="1" class="course-cell course-cell-num" data-field="par" value="${c.par ?? ''}" placeholder="—"></td>
+      <td><input type="number" step="0.1" class="course-cell course-cell-num" data-field="rating" value="${c.rating ?? ''}" placeholder="—"></td>
+      <td><input type="number" step="1" class="course-cell course-cell-num" data-field="slope" value="${c.slope ?? ''}" placeholder="—"></td>
+      <td class="course-actions">
+        <button type="button" class="use-course-btn" ${c.rating && c.slope ? '' : 'disabled'}>Use</button>
+        <button type="button" class="delete-course-btn" aria-label="Remove course">✕</button>
+      </td>
     </tr>
   `).join('');
 }
 
-document.addEventListener('click', (e) => {
-  const btn = e.target.closest('.use-course-btn');
-  if (!btn) return;
-  document.getElementById('roundCourse').value = btn.dataset.name;
-  document.getElementById('roundRating').value = btn.dataset.rating;
-  document.getElementById('roundSlope').value = btn.dataset.slope;
-  updateLiveDifferential();
-  document.getElementById('roundScore').focus();
+document.getElementById('nearbyCoursesBody').addEventListener('input', (e) => {
+  const cell = e.target.closest('.course-cell');
+  if (!cell) return;
+  const row = e.target.closest('tr');
+  const course = findCourse(row.dataset.id);
+  if (!course) return;
+  const field = cell.dataset.field;
+  if (field === 'par' || field === 'rating' || field === 'slope') {
+    course[field] = cell.value === '' ? null : parseFloat(cell.value);
+  } else {
+    course[field] = cell.value;
+  }
+  saveData(state);
+  row.querySelector('.use-course-btn').disabled = !(course.rating && course.slope);
 });
 
-renderNearbyCourses();
+document.getElementById('nearbyCoursesBody').addEventListener('click', (e) => {
+  const row = e.target.closest('tr');
+  if (!row) return;
+  const course = findCourse(row.dataset.id);
+  if (!course) return;
+
+  if (e.target.closest('.use-course-btn')) {
+    document.getElementById('roundCourse').value = course.name;
+    document.getElementById('roundRating').value = course.rating;
+    document.getElementById('roundSlope').value = course.slope;
+    updateLiveDifferential();
+    document.getElementById('roundScore').focus();
+  }
+
+  if (e.target.closest('.delete-course-btn')) {
+    state.courses = state.courses.filter((c) => c.id !== course.id);
+    saveData(state);
+    renderNearbyCourses();
+  }
+});
+
+document.getElementById('addCourseRowBtn').addEventListener('click', () => {
+  const id = `custom-${Date.now()}`;
+  state.courses.push({ id, name: '', town: '', par: null, rating: null, slope: null });
+  saveData(state);
+  renderNearbyCourses();
+  document.querySelector(`tr[data-id="${id}"] input[data-field="name"]`).focus();
+});
 
 // ---------------------------------------------------------------------------
 // Init

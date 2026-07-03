@@ -321,6 +321,7 @@ th {
   font-size: 0.75rem;
   font-weight: 600;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .use-course-btn:hover {
@@ -328,8 +329,54 @@ th {
   color: #fff;
 }
 
+.use-course-btn:disabled {
+  border-color: var(--border);
+  color: var(--border);
+  cursor: not-allowed;
+}
+
+.delete-course-btn {
+  background: none;
+  border: none;
+  color: var(--danger);
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0.1rem 0.3rem;
+}
+
+.course-actions {
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+}
+
 .courses-table {
   font-size: 0.8rem;
+}
+
+.course-cell {
+  width: 100%;
+  min-width: 4.5rem;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text);
+  font-size: 0.8rem;
+  padding: 0.3rem 0.35rem;
+  border-radius: 6px;
+}
+
+.course-cell-num {
+  min-width: 3.5rem;
+}
+
+.course-cell:hover {
+  border-color: var(--border);
+}
+
+.course-cell:focus {
+  outline: none;
+  border-color: var(--green-500);
+  background: var(--bg);
 }
 
 .info-btn {
