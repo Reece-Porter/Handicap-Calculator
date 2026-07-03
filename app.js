@@ -7,27 +7,8 @@ const STORAGE_KEY = 'golfHandicapData';
 // Seed course names/towns only - no rating or slope, since those must come
 // from the user rather than a guessed or scraped source.
 const DEFAULT_COURSES = [
-  { name: 'Cochrane Castle', town: 'Johnstone' },
-  { name: 'Elderslie', town: 'Elderslie' },
-  { name: 'Old Course Ranfurly', town: 'Bridge of Weir' },
-  { name: 'Ranfurly Castle', town: 'Bridge of Weir' },
-  { name: 'Kilmacolm', town: 'Kilmacolm' },
-  { name: 'Erskine', town: 'Bishopton' },
-  { name: 'Gleddoch', town: 'Langbank' },
-  { name: 'Port Glasgow', town: 'Port Glasgow' },
-  { name: 'Greenock', town: 'Greenock' },
-  { name: 'Greenock Whinhill', town: 'Greenock' },
-  { name: 'Paisley', town: 'Paisley' },
-  { name: 'Ralston', town: 'Paisley' },
-  { name: 'Barshaw', town: 'Paisley' },
-  { name: 'Renfrew', town: 'Renfrew' },
-  { name: 'Bonnyton', town: 'Eaglesham' },
-  { name: 'Whitecraigs', town: 'Giffnock' },
-  { name: 'Williamwood', town: 'Clarkston' },
-  { name: 'Cathcart Castle', town: 'Clarkston' },
-  { name: 'Lochwinnoch', town: 'Lochwinnoch' },
-  { name: 'Caldwell', town: 'Uplawmoor' },
-].map((c, i) => ({ id: `seed-${i}`, name: c.name, town: c.town, par: null, rating: null, slope: null }));
+  { id: 'seed-0', name: 'Cochrane Castle', town: 'Johnstone', par: 70, rating: 69.6, slope: 126 },
+];
 
 function loadData() {
   const raw = localStorage.getItem(STORAGE_KEY);
