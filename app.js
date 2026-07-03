@@ -564,7 +564,31 @@ function renderNearbyCourses() {
       </td>
     </tr>
   `).join('');
+  populateCourseSelect();
 }
+
+function populateCourseSelect() {
+  const select = document.getElementById('courseSelect');
+  const previousValue = select.value;
+  const usable = state.courses.filter((c) => c.rating && c.slope);
+  select.innerHTML = '<option value="">— Select a saved course —</option>' + usable.map((c) => `
+    <option value="${escapeAttr(c.id)}">${escapeHtml(c.name || 'Unnamed')}${c.town ? ' – ' + escapeHtml(c.town) : ''}</option>
+  `).join('');
+  if (usable.some((c) => c.id === previousValue)) select.value = previousValue;
+}
+
+function applyCourseToForm(course) {
+  document.getElementById('roundCourse').value = course.name;
+  document.getElementById('roundRating').value = course.rating;
+  document.getElementById('roundSlope').value = course.slope;
+  updateLiveDifferential();
+}
+
+document.getElementById('courseSelect').addEventListener('change', (e) => {
+  const course = findCourse(e.target.value);
+  if (!course) return;
+  applyCourseToForm(course);
+});
 
 document.getElementById('nearbyCoursesBody').addEventListener('input', (e) => {
   const cell = e.target.closest('.course-cell');
@@ -580,6 +604,7 @@ document.getElementById('nearbyCoursesBody').addEventListener('input', (e) => {
   }
   saveData(state);
   row.querySelector('.use-course-btn').disabled = !(course.rating && course.slope);
+  populateCourseSelect();
 });
 
 document.getElementById('nearbyCoursesBody').addEventListener('click', (e) => {
@@ -589,10 +614,7 @@ document.getElementById('nearbyCoursesBody').addEventListener('click', (e) => {
   if (!course) return;
 
   if (e.target.closest('.use-course-btn')) {
-    document.getElementById('roundCourse').value = course.name;
-    document.getElementById('roundRating').value = course.rating;
-    document.getElementById('roundSlope').value = course.slope;
-    updateLiveDifferential();
+    applyCourseToForm(course);
     document.getElementById('roundScore').focus();
   }
 
