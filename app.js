@@ -454,6 +454,59 @@ document.getElementById('resetBtn').addEventListener('click', () => {
 });
 
 // ---------------------------------------------------------------------------
+// Glossary popups
+// ---------------------------------------------------------------------------
+
+const GLOSSARY = {
+  courseRating: {
+    title: 'Course Rating',
+    body: 'The score a scratch golfer (0 handicap) would be expected to shoot on this course, from a given set of tees. Usually a number between about 67 and 77. You’ll find it on the scorecard or the tee marker board.',
+  },
+  slopeRating: {
+    title: 'Slope Rating',
+    body: 'A number from 55 to 155 (113 counts as "standard" difficulty) showing how much harder the course plays for a bogey golfer than for a scratch golfer, relative to the Course Rating. The higher the slope, the tougher the course is for higher-handicap players specifically. It’s printed on the scorecard next to the Course Rating.',
+  },
+  handicapIndex: {
+    title: 'Handicap Index',
+    body: 'A number representing your demonstrated playing ability, worked out from your best recent score differentials. Lower is better — a 0 handicap is a scratch golfer, and very strong players can even have a negative ("plus") handicap.',
+  },
+  scoreDifferential: {
+    title: 'Score Differential',
+    body: 'A single round’s score adjusted for how hard the course was, so rounds on different courses can be compared fairly. Calculated as (113 ÷ Slope Rating) × (Score − Course Rating). Your Handicap Index is the average of your best few differentials.',
+  },
+  grossScore: {
+    title: 'Gross Score',
+    body: 'The total number of strokes you took over the round — just your raw scorecard total, with no handicap adjustment applied.',
+  },
+};
+
+const glossaryModal = document.getElementById('glossaryModal');
+
+function openGlossary(term) {
+  const entry = GLOSSARY[term];
+  if (!entry) return;
+  document.getElementById('modalTitle').textContent = entry.title;
+  document.getElementById('modalBody').textContent = entry.body;
+  glossaryModal.hidden = false;
+}
+
+function closeGlossary() {
+  glossaryModal.hidden = true;
+}
+
+document.querySelectorAll('.info-btn').forEach((btn) => {
+  btn.addEventListener('click', () => openGlossary(btn.dataset.term));
+});
+
+document.getElementById('modalCloseBtn').addEventListener('click', closeGlossary);
+glossaryModal.addEventListener('click', (e) => {
+  if (e.target === glossaryModal) closeGlossary();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && !glossaryModal.hidden) closeGlossary();
+});
+
+// ---------------------------------------------------------------------------
 // Init
 // ---------------------------------------------------------------------------
 

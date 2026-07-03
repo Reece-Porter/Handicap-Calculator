@@ -24,7 +24,7 @@
   <!-- HOME -->
   <section id="home" class="tab-panel active">
     <div class="card handicap-card">
-      <span class="label">Current Handicap Index</span>
+      <span class="label">Current Handicap Index <button type="button" class="info-btn" data-term="handicapIndex">?</button></span>
       <span class="handicap-value" id="currentHandicapDisplay">--</span>
       <span class="sub" id="handicapSourceNote"></span>
     </div>
@@ -36,7 +36,7 @@
       </div>
       <div class="stat-box">
         <span class="stat-value" id="statBestDiff">--</span>
-        <span class="stat-label">Best Differential</span>
+        <span class="stat-label">Best Differential <button type="button" class="info-btn" data-term="scoreDifferential">?</button></span>
       </div>
       <div class="stat-box">
         <span class="stat-value" id="statUsedCount">--</span>
@@ -68,16 +68,17 @@
           <input type="text" id="roundCourse" placeholder="e.g. Pebble Beach">
         </label>
         <div class="form-row">
-          <label>Course Rating
+          <label>Course Rating <button type="button" class="info-btn" data-term="courseRating">?</button>
             <input type="number" id="roundRating" step="0.1" min="50" max="90" required>
           </label>
-          <label>Slope Rating
+          <label>Slope Rating <button type="button" class="info-btn" data-term="slopeRating">?</button>
             <input type="number" id="roundSlope" step="1" min="55" max="155" required>
           </label>
         </div>
-        <label>Score (gross strokes)
+        <label>Score (gross strokes) <button type="button" class="info-btn" data-term="grossScore">?</button>
           <input type="number" id="roundScore" step="1" min="18" max="200" required>
         </label>
+        <div class="live-diff-label">Score Differential <button type="button" class="info-btn" data-term="scoreDifferential">?</button></div>
         <div class="live-diff" id="liveDifferential"></div>
         <button type="submit" class="btn-primary">Save Round</button>
       </form>
@@ -98,7 +99,7 @@
               <th>Score</th>
               <th>Rating</th>
               <th>Slope</th>
-              <th>Diff.</th>
+              <th>Diff. <button type="button" class="info-btn" data-term="scoreDifferential">?</button></th>
               <th>Used</th>
               <th></th>
             </tr>
@@ -116,14 +117,14 @@
       <p class="hint">See what your handicap index would become if you played a round with a given score.</p>
       <form id="simulateForm">
         <div class="form-row">
-          <label>Course Rating
+          <label>Course Rating <button type="button" class="info-btn" data-term="courseRating">?</button>
             <input type="number" id="simRating" step="0.1" min="50" max="90" required>
           </label>
-          <label>Slope Rating
+          <label>Slope Rating <button type="button" class="info-btn" data-term="slopeRating">?</button>
             <input type="number" id="simSlope" step="1" min="55" max="155" required>
           </label>
         </div>
-        <label>Hypothetical Score
+        <label>Hypothetical Score <button type="button" class="info-btn" data-term="grossScore">?</button>
           <input type="number" id="simScore" step="1" min="18" max="200" required>
         </label>
         <button type="submit" class="btn-primary">Calculate</button>
@@ -135,14 +136,14 @@
       <h2>Target Handicap → Required Score</h2>
       <p class="hint">Work out the score you need to shoot to bring your handicap down to a target number.</p>
       <form id="targetForm">
-        <label>Target Handicap Index
+        <label>Target Handicap Index <button type="button" class="info-btn" data-term="handicapIndex">?</button>
           <input type="number" id="targetHandicap" step="0.1" required>
         </label>
         <div class="form-row">
-          <label>Course Rating
+          <label>Course Rating <button type="button" class="info-btn" data-term="courseRating">?</button>
             <input type="number" id="targetRating" step="0.1" min="50" max="90" required>
           </label>
-          <label>Slope Rating
+          <label>Slope Rating <button type="button" class="info-btn" data-term="slopeRating">?</button>
             <input type="number" id="targetSlope" step="1" min="55" max="155" required>
           </label>
         </div>
@@ -158,7 +159,7 @@
       <h2>Manual Handicap Override</h2>
       <p class="hint">If you already know your official handicap index (e.g. you have fewer than 3 rounds logged here), set it manually. It will be replaced automatically once enough rounds are logged.</p>
       <form id="manualForm">
-        <label>Handicap Index
+        <label>Handicap Index <button type="button" class="info-btn" data-term="handicapIndex">?</button>
           <input type="number" id="manualHandicap" step="0.1">
         </label>
         <button type="submit" class="btn-primary">Save</button>
@@ -179,6 +180,14 @@
   </section>
 
 </main>
+
+<div class="modal-overlay" id="glossaryModal" hidden>
+  <div class="modal-box">
+    <button type="button" class="modal-close" id="modalCloseBtn" aria-label="Close">&times;</button>
+    <h3 id="modalTitle"></h3>
+    <p id="modalBody" class="hint"></p>
+  </div>
+</div>
 
 <script src="app.js"></script>
 </body>

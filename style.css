@@ -311,3 +311,81 @@ th {
   cursor: pointer;
   font-size: 0.85rem;
 }
+
+.info-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.05rem;
+  height: 1.05rem;
+  border-radius: 50%;
+  background: var(--border);
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.info-btn:hover {
+  background: var(--green-500);
+  color: #fff;
+}
+
+.live-diff-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-top: -0.3rem;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 100;
+}
+
+.modal-overlay[hidden] {
+  display: none;
+}
+
+.modal-box {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem 1.25rem 1.25rem;
+  max-width: 340px;
+  width: 100%;
+  box-shadow: var(--shadow);
+}
+
+.modal-box h3 {
+  margin: 0 0 0.5rem;
+  color: var(--green-600);
+}
+
+.modal-box p {
+  margin: 0;
+}
+
+.modal-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  line-height: 1;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.25rem;
+}
