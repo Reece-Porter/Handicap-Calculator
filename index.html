@@ -3,19 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Golf Handicap Calculator</title>
+<title>Golf Companion — Handicap Calculator & Tips</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header class="app-header">
-  <h1>⛳ Golf Handicap Calculator</h1>
+  <h1>⛳ Golf Companion</h1>
   <nav class="tabs">
     <button class="tab-btn active" data-tab="home">Home</button>
     <button class="tab-btn" data-tab="add">Add Round</button>
     <button class="tab-btn" data-tab="history">History</button>
     <button class="tab-btn" data-tab="predictor">Predictor</button>
     <button class="tab-btn" data-tab="settings">Settings</button>
+    <button class="tab-btn" data-tab="clubs">Clubs</button>
+    <button class="tab-btn" data-tab="swing">Swing</button>
+    <button class="tab-btn" data-tab="strategy">Strategy</button>
   </nav>
 </header>
 
@@ -212,6 +215,298 @@
         <button id="resetBtn" class="btn-danger">Reset All Data</button>
       </div>
       <input type="file" id="importFile" accept="application/json" hidden>
+    </div>
+  </section>
+
+  <!-- CLUBS -->
+  <section id="clubs" class="tab-panel">
+    <div class="card">
+      <h2>Clubs</h2>
+      <p class="hint">Setup and technique for every club in the bag. Tap a club to expand it. These are general starting points — every golfer's build and swing is a little different, so use them as a baseline to build from.</p>
+    </div>
+    <div class="card">
+      <details class="tip-item" open>
+        <summary>Driver</summary>
+        <div class="tip-body">
+          <p><strong>Typical distance:</strong> 200–280+ yards depending on player, but your own average matters more than any chart.</p>
+          <p><strong>Ball position:</strong> Forward, off the inside of your lead heel.</p>
+          <p><strong>Stance:</strong> Widest stance in the bag — shoulder-width or a touch wider, for stability at high speed.</p>
+          <p><strong>Tee height:</strong> Roughly half the ball should sit above the top of the driver's crown.</p>
+          <p><strong>Setup:</strong> Tilt your spine slightly away from the target, with a touch more weight on your trail side.</p>
+          <p><strong>Swing thought:</strong> Sweep the ball off the tee on a shallow, ascending path — try to hit "up" on it, not down.</p>
+          <p><strong>Common mistake:</strong> Ball too far back in the stance, causing a steep, descending strike (pop-ups, slices). Move it forward and tee it higher.</p>
+        </div>
+      </details>
+      <details class="tip-item">
+        <summary>Fairway Woods</summary>
+        <div class="tip-body">
+          <p><strong>Typical distance:</strong> 180–230 yards.</p>
+          <p><strong>Ball position:</strong> Just forward of center, roughly 2–3 ball-widths inside your lead heel.</p>
+          <p><strong>Stance:</strong> Slightly narrower than driver.</p>
+          <p><strong>Swing thought:</strong> Sweep the turf rather than dig — "brush the grass" instead of taking a divot.</p>
+          <p><strong>Common mistake:</strong> Trying to scoop the ball into the air. Trust the loft, hit down and through, and let the club do the work.</p>
+        </div>
+      </details>
+      <details class="tip-item">
+        <summary>Hybrids</summary>
+        <div class="tip-body">
+          <p><strong>Typical distance:</strong> 170–200 yards — a long-iron replacement.</p>
+          <p><strong>Ball position:</strong> Center to slightly forward of center.</p>
+          <p><strong>Swing thought:</strong> A shallower version of an iron strike — slightly descending, but more sweeping than a long iron.</p>
+          <p><strong>Best for:</strong> Tight lies, rough, or long approaches where a long iron feels hard to control.</p>
+        </div>
+      </details>
+      <details class="tip-item">
+        <summary>Long Irons (3–5)</summary>
+        <div class="tip-body">
+          <p><strong>Typical distance:</strong> 150–190 yards.</p>
+          <p><strong>Ball position:</strong> Just forward of center.</p>
+          <p><strong>Setup:</strong> Athletic posture, weight balanced roughly 50/50.</p>
+          <p><strong>Swing thought:</strong> Compress the ball with a descending blow — ball first, then turf.</p>
+          <p><strong>Common mistake:</strong> Trying to lift the ball with your hands. Trust the club's loft, hit down, and let the ball fly up on its own.</p>
+        </div>
+      </details>
+      <details class="tip-item">
+        <summary>Mid Irons (6–8)</summary>
+        <div class="tip-body">
+          <p><strong>Typical distance:</strong> 120–160 yards.</p>
+          <p><strong>Ball position:</strong> Center of stance.</p>
+          <p><strong>Setup:</strong> Slightly narrower than long irons, with a bit more weight forward (around 55% lead side).</p>
+          <p><strong>Swing thought:</strong> Descending strike — ball, then a shallow divot just after it.</p>
+          <p>These tend to be the most forgiving clubs in the bag — great ones to build consistent ball-striking on.</p>
+        </div>
+      </details>
+      <details class="tip-item">
+        <summary>Short Irons & Wedges (9-iron–LW)</summary>
+        <div class="tip-body">
+          <p><strong>Typical distance:</strong> 50–130 yards, depending on club and swing length.</p>
+          <p><strong>Ball position:</strong> Center to slightly back of center.</p>
+          <p><strong>Setup:</strong> Narrower stance, hands slightly ahead of the ball at address.</p>
+          <p><strong>Swing thought:</strong> A steeper, more controlled swing — accelerate through impact rather than decelerating into it.</p>
+          <p><strong>Common mistake:</strong> Trying to scoop the ball up. Let your hands lead the clubhead through impact and trust the loft.</p>
+        </div>
+      </details>
+      <details class="tip-item">
+        <summary>Chipping & Pitching</summary>
+        <div class="tip-body">
+          <p><strong>Ball position:</strong> Back of center for chips, center for pitches.</p>
+          <p><strong>Setup:</strong> Narrow stance, weight favouring your lead side (roughly 60–70%), hands ahead of the ball.</p>
+          <p><strong>Technique:</strong> A quiet, putting-like motion for chips with minimal wrist hinge; a bit more arm and wrist action for longer pitches.</p>
+          <p><strong>Key principle:</strong> Get the ball rolling as soon as it's safely on the green — pick the club that lands it just on and lets it release to the hole, rather than always reaching for the same wedge.</p>
+          <p>Short game is worth disproportionate practice time — see the Strategy tab.</p>
+        </div>
+      </details>
+      <details class="tip-item">
+        <summary>Putter</summary>
+        <div class="tip-body">
+          <p><strong>Ball position:</strong> Just forward of center, under your lead eye (drop a ball from your eye and check it lands on/near the ball).</p>
+          <p><strong>Setup:</strong> Eyes over or just inside the ball, arms hanging naturally.</p>
+          <p><strong>Stroke:</strong> A pendulum motion driven by the shoulders, with a quiet lower body and consistent tempo — think equal length back and through for a given distance.</p>
+          <p><strong>Common mistake:</strong> Wrists breaking down through the stroke, causing inconsistent contact. Keep the wrists quiet and let the shoulders and arms do the work.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- SWING -->
+  <section id="swing" class="tab-panel">
+    <div class="card">
+      <h2>Swing Fundamentals</h2>
+      <p class="hint">The building blocks of a repeatable swing, in the order they happen. Tap a section to expand it.</p>
+    </div>
+    <div class="card">
+      <details class="tip-item" open>
+        <summary>Grip</summary>
+        <div class="tip-body">
+          <p><strong>Types:</strong> Overlap (Vardon), interlock, or ten-finger (baseball) — overlap is the most common.</p>
+          <p><strong>Neutral grip:</strong> Looking down, you should see roughly 2–3 knuckles of your lead hand, with the "V" shapes formed by both thumbs and forefingers pointing toward your trail shoulder.</p>
+          <p><strong>Pressure:</strong> Light — like holding a tube of toothpaste without squeezing any out, around a 4–5 out of 10. Tension kills clubhead speed.</p>
+        </div>
+      </details>
+      <details class="tip-item">
+        <summary>Setup & Posture</summary>
+        <div class="tip-body">
+          <p><strong>Feet:</strong> Shoulder-width for irons, a touch wider for driver.</p>
+          <p><strong>Knees:</strong> Slight flex — an athletic, ready position.</p>
+          <p><strong>Spine:</strong> Bend from the hips, not the waist, with a relatively straight back and your chin up off your chest.</p>
+          <p><strong>Arms:</strong> Hang naturally from the shoulders — don't reach for the ball or crowd it.</p>
+          <p><strong>Weight:</strong> Balanced on the balls of your feet, roughly 50/50 for irons.</p>
+        </div>
+      </details>
+      <details class="tip-item">
+        <summary>Alignment</summary>
+        <div class="tip-body">
+          <p>Aim the clubface at the target first, then build your stance around it.</p>
+          <p>Feet, hips, and shoulders should sit parallel to the target line, like railroad tracks — your body line runs parallel left of the target (for a right-handed golfer), not directly at it.</p>
+          <p>Check this often with alignment sticks or a spare club on the range — most amateurs aim further right than they realise.</p>
+        </div>
+      </details>
+      <details class="tip-item">
+        <summary>Backswing</summary>
+        <div class="tip-body">
+          <p><strong>Takeaway:</strong> Move the club back low and slow, controlled by the shoulders and arms together, not just the hands.</p>
+          <p><strong>Wrist hinge:</strong> Let your wrists hinge naturally as the club reaches waist height.</p>
+          <p><strong>Shoulder turn:</strong> Rotate your shoulders around your spine (aim for roughly 80–90°) while keeping your lower body relatively stable.</p>
+          <p><strong>Weight shift:</strong> Let your weight move into your trail foot as you turn back.</p>
+        </div>
+      </details>
+      <details class="tip-item">
+        <summary>Downswing & Transition</summary>
+        <div class="tip-body">
+          <p>Start the downswing with your lower body — hips beginning to unwind before the arms and club — rather than throwing the club from the top with your hands. This sequencing is one of the biggest differences between good and poor ball-strikers.</p>
+          <p>Avoid "casting" (releasing the wrist hinge too early from the top). Try to hold that angle a little longer than feels natural — often described as "lag."</p>
+          <p>Let the arms and club follow the body's rotation rather than swinging independently of it.</p>
+        </div>
+      </details>
+      <details class="tip-item">
+        <summary>Impact</summary>
+        <div class="tip-body">
+          <p>Hands slightly ahead of the clubhead at impact, especially with irons.</p>
+          <p>Weight has shifted onto the lead foot — roughly 80–90% for irons.</p>
+          <p>Hips are open toward the target, with the chest following just behind.</p>
+        </div>
+      </details>
+      <details class="tip-item">
+        <summary>Follow-Through & Finish</summary>
+        <div class="tip-body">
+          <p>Rotate fully through to a balanced finish, weight completely on the lead foot, belt buckle facing the target.</p>
+          <p>Hold your finish for a second or two after every shot on the range — it's a simple, effective way to check your balance and whether the swing was truly completed.</p>
+        </div>
+      </details>
+      <details class="tip-item">
+        <summary>Tempo & Rhythm</summary>
+        <div class="tip-body">
+          <p>A smooth, unhurried tempo — often described as roughly a 3:1 backswing-to-downswing ratio — produces more consistent contact than swinging as hard as possible.</p>
+          <p>Try counting in your head ("one-two" back, "three" down) on the range to build a repeatable rhythm.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="card">
+      <h2>Common Swing Faults & Fixes</h2>
+      <details class="tip-item" open>
+        <summary>Slice (curves hard right, for a right-hander)</summary>
+        <div class="tip-body">
+          <p>Usually caused by an open clubface at impact and/or an out-to-in swing path.</p>
+          <p><strong>Fix:</strong> Check your grip isn't too weak, and work on swinging more from inside the target line.</p>
+        </div>
+      </details>
+      <details class="tip-item">
+        <summary>Hook (curves hard left, for a right-hander)</summary>
+        <div class="tip-body">
+          <p>Usually caused by a closed clubface at impact and/or an in-to-out swing path.</p>
+          <p><strong>Fix:</strong> Check your grip isn't too strong, and soften your release through impact.</p>
+        </div>
+      </details>
+      <details class="tip-item">
+        <summary>Topping or thin shots</summary>
+        <div class="tip-body">
+          <p>Usually caused by standing up out of your posture during the swing, catching the equator of the ball.</p>
+          <p><strong>Fix:</strong> Keep your spine angle steady from address through impact — "stay in your posture."</p>
+        </div>
+      </details>
+      <details class="tip-item">
+        <summary>Fat shots (hitting behind the ball)</summary>
+        <div class="tip-body">
+          <p>Usually caused by weight hanging back on the trail foot at impact, or the ball positioned too far forward.</p>
+          <p><strong>Fix:</strong> Make sure your weight actively shifts onto the lead side through impact.</p>
+        </div>
+      </details>
+      <details class="tip-item">
+        <summary>Shanks (hitting off the hosel)</summary>
+        <div class="tip-body">
+          <p>Usually caused by weight shifting too far toward your toes, or the club moving too far outward in transition.</p>
+          <p><strong>Fix:</strong> Focus on staying centered and balanced, and feel like you're swinging from the heel of the club.</p>
+        </div>
+      </details>
+      <details class="tip-item">
+        <summary>Casting (losing wrist lag)</summary>
+        <div class="tip-body">
+          <p>Releasing the wrist angle too early from the top of the backswing, before the club reaches the ball.</p>
+          <p><strong>Fix:</strong> Feel like the butt end of the grip leads the clubhead down into the ball, rather than the clubhead being thrown at it.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- STRATEGY -->
+  <section id="strategy" class="tab-panel">
+    <div class="card">
+      <h2>Course Strategy & Practice</h2>
+      <p class="hint">How to actually lower your scores — course management, practice habits, and the mental side. Tap a section to expand it.</p>
+    </div>
+    <div class="card">
+      <details class="tip-item" open>
+        <summary>Course Management</summary>
+        <div class="tip-body">
+          <p>Play to the widest part of the fairway and the fat part of the green, not always straight at the flag.</p>
+          <p>Take whatever club gets you safely past a hazard — a mid-iron in play beats a hero 3-wood into the trees.</p>
+          <p>Think "next shot": pick the spot that leaves you the easiest possible following shot, not just the longest drive.</p>
+        </div>
+      </details>
+      <details class="tip-item">
+        <summary>Club Selection</summary>
+        <div class="tip-body">
+          <p>Take one more club than you think on approach shots — most amateurs come up short far more often than they go long.</p>
+          <p>Know your realistic <em>average</em> distance with each club, not your best-ever shot, and club accordingly.</p>
+          <p>When in doubt, take the extra club and make a smooth swing rather than forcing a shorter one.</p>
+        </div>
+      </details>
+      <details class="tip-item">
+        <summary>Pre-Shot Routine</summary>
+        <div class="tip-body">
+          <p>Pick a precise target before every shot — not just "somewhere down there."</p>
+          <p>Take one or two practice swings feeling the shot you want to hit, then commit. Avoid over-thinking once you're stood over the ball.</p>
+          <p>Use the same routine every time — it builds consistency and helps under pressure.</p>
+        </div>
+      </details>
+      <details class="tip-item">
+        <summary>Managing Your Misses</summary>
+        <div class="tip-body">
+          <p>Everyone misses shots. The goal is making your misses as harmless as possible, rather than chasing perfect ones.</p>
+          <p>If you're fighting a slice mid-round, play for it rather than trying to fix it on the course — save the technical work for the range.</p>
+          <p>A comfortable bogey is a fine outcome. Trying to be a hero from trouble is where big scores happen.</p>
+        </div>
+      </details>
+      <details class="tip-item">
+        <summary>Short Game Priority</summary>
+        <div class="tip-body">
+          <p>Roughly 60% of your shots in a typical round happen from 100 yards and in, so it's worth weighting your practice time there over the driving range.</p>
+          <p>A solid short game — chipping and putting — lowers your scores faster than raw swing speed does.</p>
+        </div>
+      </details>
+      <details class="tip-item">
+        <summary>Mental Game</summary>
+        <div class="tip-body">
+          <p>Play one shot at a time — don't let a bad hole carry into the next one.</p>
+          <p>Stay patient. Golf is a game of misses, even for professionals.</p>
+          <p>Focus on process — routine, target, commitment — rather than outcome while you're actually swinging.</p>
+        </div>
+      </details>
+      <details class="tip-item">
+        <summary>Reading Conditions</summary>
+        <div class="tip-body">
+          <p><strong>Wind:</strong> Into the wind, take more club and swing easier; downwind, take less club. Crosswinds affect a curving shot more than a straight one.</p>
+          <p><strong>Slopes:</strong> An uphill lie tends to send the ball higher and shorter (take more club); a downhill lie sends it lower and longer (take less).</p>
+          <p><strong>Rough:</strong> Expect less spin and a "flyer" that goes further with less control — take more club and aim for the center of the green.</p>
+        </div>
+      </details>
+      <details class="tip-item">
+        <summary>Warm-Up Routine</summary>
+        <div class="tip-body">
+          <p>Start with stretches and short, easy swings before hitting full shots.</p>
+          <p>Work from wedges up to driver, then finish with a few putts to get a feel for green speed before you tee off.</p>
+          <p>Hit a few shots with the club you'll use off the first tee last, so it's fresh in your hands.</p>
+        </div>
+      </details>
+      <details class="tip-item">
+        <summary>Practice Habits</summary>
+        <div class="tip-body">
+          <p>Split practice time roughly 50/50 between full swing and short game/putting.</p>
+          <p>Practice with a target and a purpose — alternate clubs, vary targets — rather than hitting the same shot on autopilot.</p>
+          <p>Track your rounds (which is exactly what the Handicap Calculator side of this app is for) to see real trends in your scoring, not just how it felt.</p>
+        </div>
+      </details>
     </div>
   </section>
 
