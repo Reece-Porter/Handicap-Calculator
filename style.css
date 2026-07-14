@@ -523,3 +523,207 @@ th {
 .tip-body strong {
   color: var(--text);
 }
+
+/* ---------------------------------------------------------------------- */
+/* Diagrams                                                                */
+/* ---------------------------------------------------------------------- */
+
+.diagram {
+  display: block;
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  margin: 0.25rem auto 0.9rem;
+}
+
+.diagram-wide {
+  max-width: 100%;
+}
+
+.diagram-line {
+  stroke: var(--text-muted);
+  stroke-width: 2;
+  fill: none;
+}
+
+.diagram-line-bold {
+  stroke: var(--green-600);
+  stroke-width: 3;
+  fill: none;
+  stroke-linecap: round;
+}
+
+.diagram-line-dashed {
+  stroke: var(--text-muted);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 4;
+  fill: none;
+}
+
+.diagram-line-danger {
+  stroke: var(--danger);
+  stroke-width: 2.5;
+  fill: none;
+  stroke-linecap: round;
+}
+
+.diagram-marker {
+  fill: var(--border);
+}
+
+.diagram-marker-active {
+  fill: var(--green-500);
+}
+
+.diagram-foot {
+  fill: var(--border);
+}
+
+.diagram-text {
+  font-size: 9px;
+  fill: var(--text-muted);
+  font-family: inherit;
+}
+
+.diagram-text-strong {
+  font-size: 9px;
+  fill: var(--green-600);
+  font-weight: 700;
+  font-family: inherit;
+}
+
+.diagram-text-danger {
+  font-size: 9px;
+  fill: var(--danger);
+  font-family: inherit;
+}
+
+.diagram-grip {
+  fill: var(--green-500);
+}
+
+.diagram-ball {
+  fill: var(--surface);
+  stroke: var(--text-muted);
+  stroke-width: 1.5;
+}
+
+.diagram-fairway {
+  fill: var(--bg);
+  stroke: var(--border);
+  stroke-width: 1.5;
+}
+
+.diagram-hazard {
+  fill: #c8a165;
+  opacity: 0.55;
+}
+
+.diagram-flag {
+  fill: var(--danger);
+}
+
+/* ---------------------------------------------------------------------- */
+/* Video cards                                                             */
+/* ---------------------------------------------------------------------- */
+
+.video-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  margin: 0.75rem 0;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.video-thumb-wrap {
+  position: relative;
+  background: #000;
+}
+
+.video-thumb-wrap img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.video-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.video-title {
+  display: block;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.video-title small {
+  display: block;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-top: 0.15rem;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Responsive breakpoints                                                  */
+/* ---------------------------------------------------------------------- */
+
+@media (min-width: 700px) {
+  main {
+    max-width: 760px;
+    padding: 1.5rem;
+  }
+
+  .app-header {
+    padding: 1.5rem 1.5rem 0;
+  }
+
+  .app-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .handicap-value {
+    font-size: 3.6rem;
+  }
+
+  .card {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 1000px) {
+  main {
+    max-width: 940px;
+  }
+
+  .tabs {
+    justify-content: center;
+  }
+
+  .stats-row {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 1300px) {
+  main {
+    max-width: 1080px;
+  }
+}
